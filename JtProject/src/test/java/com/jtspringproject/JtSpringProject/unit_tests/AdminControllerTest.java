@@ -5,10 +5,6 @@ import org.junit.Test;
 import static org.mockito.Mockito.*;
 import org.springframework.ui.Model;
 
-
-import java.sql.*;
-import java.util.*;
-
 import static org.junit.Assert.assertEquals;
 
 public class AdminControllerTest {
@@ -55,7 +51,6 @@ public class AdminControllerTest {
         Model modelMock = mock(Model.class);
         String username = "non_empty";
         AdminController.usernameforclass = username;
-        UserController userControllerMock = mock(UserController.class);
 
         String result = adminController.index(modelMock);
 
@@ -74,9 +69,41 @@ public class AdminControllerTest {
         assertEquals("userLogin", result);
     }
 
+    @Test
+    public void TestUserLogin() {
+        AdminController adminController = new AdminController();
+        Model model = mock(Model.class);
+        String result = adminController.userlog(model);
+        // Verify that the return value is as expected
+        assertEquals("userLogin", result);
+    }
 
+    @Test
+    public void TestAdminLogin() {
+        AdminController adminController = new AdminController();
+        Model model = mock(Model.class);
+        String result = adminController.adminlogin(model);
+        // Verify that the return value is as expected
+        assertEquals("adminlogin", result);
+    }
 
+    @Test
+    public void TestAdminHomeIfAdminLogCheckZero() {
+        AdminController adminController = new AdminController();
+        Model model = mock(Model.class);
+        String result = adminController.adminHome(model);
+        // Verify that the return value is as expected
+        assertEquals("redirect:/admin", result);
+    }
 
+    @Test
+    public void TestAdminHomeIfAdminLogCheckNotZero() {
+        AdminController adminController = new AdminController();
+        Model model = mock(Model.class);
+        String result = adminController.userlog(model);
+        // Verify that the return value is as expected
+        assertEquals("userLogin", result);
+    }
 
 
 }
